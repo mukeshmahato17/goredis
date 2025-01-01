@@ -19,6 +19,8 @@ type Server struct {
 	addPeerCh chan *Peer
 	quitCh    chan struct{}
 	msgCh     chan []byte
+
+	kv *KV
 }
 
 func NewServer(cfg Config) *Server {
@@ -31,6 +33,7 @@ func NewServer(cfg Config) *Server {
 		addPeerCh: make(chan *Peer),
 		quitCh:    make(chan struct{}),
 		msgCh:     make(chan []byte),
+		kv:        NewKV(),
 	}
 }
 
@@ -55,7 +58,7 @@ func (s *Server) handleRawMessage(rawMsg []byte) error {
 	}
 	switch v := cmd.(type) {
 	case SetCommand:
-		slog.Info("somebody want to set a key in the hash table", "key", v.key, "value", v.val)
+		return s.kv.Set(v.key, v.val)
 	}
 	return nil
 }

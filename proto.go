@@ -35,7 +35,6 @@ func parseCommand(raw string) (Command, error) {
 			for _, value := range v.Array() {
 				switch value.String() {
 				case CommandSET:
-					fmt.Println(len(v.Array()))
 					if len(v.Array()) != 3 {
 						return nil, fmt.Errorf("invalid number of variables for SET command")
 					}
