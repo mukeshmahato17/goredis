@@ -20,7 +20,10 @@ func main() {
 	}()
 	time.Sleep(time.Second)
 
-	client := client.New("localhost:4000")
+	client, err := client.New("localhost:4000")
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	for i := 0; i < 10; i++ {
 		if err := client.Set((context.TODO()), fmt.Sprintf("foo_%d", i), fmt.Sprintf("bar_%d", i)); err != nil {
