@@ -52,13 +52,12 @@ func (s *Server) Start() error {
 
 	go s.loop()
 
-	slog.Info("server running", "listenAddr", s.ListenAddr)
+	slog.Info("goredis server is running", "listenAddr", s.ListenAddr)
 
 	return s.acceptLoop()
 }
 
 func (s *Server) handleMessage(msg Message) error {
-
 	switch v := msg.cmd.(type) {
 	case SetCommand:
 		return s.kv.Set(v.key, v.val)
