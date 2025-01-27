@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"testing"
-	"time"
 )
 
 func TestNewClient(t *testing.T) {
@@ -19,11 +18,10 @@ func TestNewClient(t *testing.T) {
 		if err := client.Set((context.TODO()), fmt.Sprintf("foo_%d", i), fmt.Sprintf("bar_%d", i)); err != nil {
 			log.Fatal(err)
 		}
-		time.Sleep(time.Second)
 		val, err := client.Get((context.TODO()), fmt.Sprintf("foo_%d", i))
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println("get", val)
+		fmt.Println("get =>", val)
 	}
 }
