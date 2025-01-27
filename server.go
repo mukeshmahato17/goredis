@@ -79,7 +79,7 @@ func (s *Server) loop() {
 		select {
 		case msg := <-s.msgCh:
 			if err := s.handleMessage(msg); err != nil {
-				slog.Info("handle raw message", "error", err)
+				slog.Info("handle raw message error", "err", err)
 			}
 		case <-s.quitCh:
 			return
