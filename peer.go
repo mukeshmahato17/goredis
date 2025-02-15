@@ -31,6 +31,7 @@ func (p *Peer) readLoop() error {
 	for {
 		v, _, err := rd.ReadValue()
 		if err == io.EOF {
+			panic(err)
 			break
 		}
 		if err != nil {
