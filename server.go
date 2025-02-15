@@ -7,7 +7,7 @@ import (
 	"net"
 )
 
-const defaultListenAddr = ":5000"
+const defaultListenAddr = ":4000"
 
 type Config struct {
 	ListenAddr string
@@ -108,7 +108,7 @@ func (s *Server) acceptLoop() error {
 }
 
 func (s *Server) handleConn(conn net.Conn) {
-	peer := NewPeer(conn, s.msgCh)
+	peer := NewPeer(conn, s.msgCh, s.delPeerCh)
 	s.addPeerCh <- peer
 	if err := peer.readLoop(); err != nil {
 		slog.Error("peer read error", "err", err, "remoteAddr", conn.RemoteAddr())

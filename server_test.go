@@ -15,7 +15,7 @@ func TestServerWithNewClients(t *testing.T) {
 
 	server := NewServer(Config{})
 	go func() {
-		server.Start()
+		log.Fatal(server.Start())
 	}()
 	time.Sleep(time.Second)
 
@@ -48,6 +48,7 @@ func TestServerWithNewClients(t *testing.T) {
 
 	wg.Wait()
 
+	time.Sleep(time.Second)
 	if len(server.peers) != 0 {
 		t.Fatalf("expected 0 but got %d", len(server.peers))
 	}
