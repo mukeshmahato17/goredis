@@ -5,7 +5,25 @@ import (
 	"fmt"
 	"log"
 	"testing"
+	"time"
 )
+
+func TestNewClient1(t *testing.T) {
+	client, err := New("localhost:4000")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer client.Close()
+	time.Sleep(time.Second)
+	if err := client.Set((context.TODO()), "foo", "bar"); err != nil {
+		log.Fatal(err)
+	}
+	val, err := client.Get((context.TODO()), "foo")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("GET =>", val)
+}
 
 func TestNewClient(t *testing.T) {
 	client, err := New("localhost:4000")
