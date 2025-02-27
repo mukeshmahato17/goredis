@@ -72,6 +72,8 @@ func (s *Server) handleMessage(msg Message) error {
 		if err != nil {
 			slog.Error("peer send error", "err", err)
 		}
+	case HelloCommand:
+		fmt.Println("this is the hello command from the client")
 	}
 	return nil
 }
