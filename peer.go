@@ -64,8 +64,6 @@ func (p *Peer) readLoop() error {
 					cmd = HelloCommand{
 						value: v.Array()[1].String(),
 					}
-				default:
-					panic("this command is not being handled")
 				}
 				p.msgCh <- Message{
 					cmd:  cmd,

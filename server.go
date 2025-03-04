@@ -70,9 +70,18 @@ func (s *Server) handleMessage(msg Message) error {
 		}
 		_, err := msg.peer.Send(val)
 		if err != nil {
-			slog.Error("peer send error", "err", err)
+			return fmt.Errorf("peer send error %s", err)
 		}
 	case HelloCommand:
+		spec := map[string]string{
+			"server": "redis",
+			"role":   "master",
+		}
+		_, err := msg.peer.Send(respWriteMap(spec))
+		if err != nil {
+			return fmt.Errorf("peer send error %s", err)
+		}
+
 		fmt.Println("this is the hello command from the client")
 	}
 	return nil

@@ -12,7 +12,7 @@ import (
 const (
 	CommandSET   = "SET"
 	CommandGET   = "GET"
-	CommandHELLO = "HELLO"
+	CommandHELLO = "hello"
 )
 
 type Command interface{}
@@ -64,12 +64,12 @@ func parseCommand(raw string) (Command, error) {
 	return nil, fmt.Errorf("invalid or unknown command recieved: %s", raw)
 }
 
-func respWriteMap(m map[string]string) string {
+func respWriteMap(m map[string]string) []byte {
 	buf := bytes.Buffer{}
 	buf.WriteString("%" + fmt.Sprintf("%d\n\r", len(m)))
 	for k, v := range m {
 		buf.WriteString(fmt.Sprintf("+%s\n\r", k))
 		buf.WriteString(fmt.Sprintf(":%s\n\r", v))
 	}
-	return buf.String()
+	return buf.Bytes()
 }
