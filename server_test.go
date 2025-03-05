@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"log"
@@ -9,9 +10,15 @@ import (
 	"time"
 
 	"github.com/mukeshmahato17/goredis/client"
+	"github.com/tidwall/resp"
 )
 
 func TestFooBar(t *testing.T) {
+	buf := &bytes.Buffer{}
+	rw := resp.NewWriter(buf)
+	rw.WriteString("OK")
+	fmt.Println(buf.String())
+
 	in := map[string]string{
 		"first":  "1",
 		"second": "2",
